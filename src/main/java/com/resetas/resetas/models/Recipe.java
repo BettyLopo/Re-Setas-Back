@@ -1,10 +1,12 @@
 package com.resetas.resetas.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
 
@@ -16,18 +18,45 @@ public class Recipe {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
     private int id;
+
+    @Column(nullable = false)
+    @NotNull(message = "La receta debe tener nombre")
     private String title;
+
+    @Column(nullable = false)
+    @NotNull(message = "La receta debe tener una imagen")
     private String image;
+
+    @Column(nullable = false)
+    @NotNull(message = "La receta debe tener al menos un ingrediente")
     private String ingredients;
+
+    @Column(nullable = false)
+    @NotNull(message = "La receta debe tener al menos una herramienta")
     private String tools;
+
+    @Column(nullable = false)
+    @NotNull(message = "La receta debe tener una explicación")
     private String steps;
+
+    @Column(nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private Timestamp duration;
+
+    @Column(nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp date;
+
+    @Column(nullable = false)
     private boolean faved;
+
+    @Column(nullable = false)
     private int id_user;
+
+    @Column(nullable = false)
+    @NotNull(message = "La receta debe pertenecer a una categoría")
     private int id_category;
 
 

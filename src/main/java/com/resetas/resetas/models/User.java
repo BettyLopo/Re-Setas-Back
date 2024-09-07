@@ -15,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,12 +34,15 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private int id;
 
+    @NotNull(message = "Debes introducir un nombre")
     @Column(nullable = false)
     private String username;
 
+    @NotNull(message = "Debes introducir un email")
     @Column(unique = true, nullable = false)
     private String email;
 
+    @NotNull(message = "Debes introducir una contraseña")
     @Column(nullable = false)
     private String password;
 

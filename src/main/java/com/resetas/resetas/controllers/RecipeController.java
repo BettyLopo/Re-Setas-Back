@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.resetas.resetas.models.Recipe;
 import com.resetas.resetas.services.RecipeService;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class RecipeController {
     
@@ -33,7 +35,7 @@ public class RecipeController {
     }
 
     @PostMapping("/recipes/create")
-    public ResponseEntity<Object> addRecipe(@RequestBody Recipe recipe) {
+    public ResponseEntity<Object> addRecipe(@Valid @RequestBody Recipe recipe) {
         return recipeService.addRecipe(recipe);
     }
 
@@ -49,7 +51,7 @@ public class RecipeController {
     }
 
     @PutMapping("/recipes/{id}")
-    public ResponseEntity<Object> updateRecipe(@PathVariable("id") int id, @RequestBody Recipe recipe) {
+    public ResponseEntity<Object> updateRecipe(@Valid @PathVariable("id") int id, @RequestBody Recipe recipe) {
         return recipeService.updateRecipe(id, recipe);
     }
 
