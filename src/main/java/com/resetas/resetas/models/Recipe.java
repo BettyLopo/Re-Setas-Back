@@ -5,10 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -42,7 +44,7 @@ public class Recipe {
     private String steps;
 
     @Column(nullable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private Timestamp duration;
 
     @Column(nullable = false)
@@ -60,7 +62,11 @@ public class Recipe {
     private int id_category;
 
 
-    public Recipe() {
+    public Recipe() {}
+
+    @PrePersist
+    protected void onCreate() {
+        this.date = Timestamp.from(Instant.now()); 
     }
 
 
