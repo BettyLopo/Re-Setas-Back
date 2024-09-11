@@ -1,5 +1,6 @@
 package com.resetas.resetas.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -57,11 +58,11 @@ public class Recipe {
     @Column(nullable = false)
     private boolean faved;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_category", nullable = false)
     @NotNull(message = "La receta debe pertenecer a una categoría")
     @JsonIgnore
