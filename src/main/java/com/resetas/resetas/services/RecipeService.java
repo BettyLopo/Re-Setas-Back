@@ -2,12 +2,15 @@ package com.resetas.resetas.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.resetas.resetas.models.Category;
 import com.resetas.resetas.models.Recipe;
+import com.resetas.resetas.models.User;
 import com.resetas.resetas.repositories.RecipeRepository;
 
 @Service
@@ -23,13 +26,34 @@ public class RecipeService {
         return recipeRepository.findAllByOrderByIdAsc();
     }
 
+    // public List<Recipe> getAllRecipes() {
+    //     List<Recipe> recipes = recipeRepository.findAllByOrderByIdAsc();
+    //     return recipes.stream().map(recipe -> {
+    //         User user = recipe.getUser();
+    //         Category category = recipe.getCategory();
+
+    //         return new Recipe(
+    //             recipe.getId(), 
+    //             recipe.getTitle(), 
+    //             recipe.getImage(), 
+    //             recipe.getDuration(), 
+    //             user.getUsername(), 
+    //             category.getCategory()
+    //         );
+    //     }).collect(Collectors.toList());
+    // }
+
     public ResponseEntity<Object> addRecipe(Recipe recipe) {
-        recipeRepository.save(recipe);
-        return new ResponseEntity<>(recipe, HttpStatus.CREATED);
+        Recipe savedRecipe = recipeRepository.save(recipe);
+        return new ResponseEntity<>(savedRecipe, HttpStatus.CREATED);
     }
     
     public Optional<Recipe> findById(int id) {
         return recipeRepository.findById(id);
+    }
+
+    public List<Recipe> findAllRecipesByUser(User user) {
+        return recipeRepository.findByUser(user);
     }
     
     public ResponseEntity<?> getRecipeById(int id) {
@@ -59,7 +83,7 @@ public class RecipeService {
             updateRecipe.setIngredients(recipe.getIngredients());
             updateRecipe.setTools(recipe.getTools());
             updateRecipe.setSteps(recipe.getSteps());
-            updateRecipe.setId_category(recipe.getId_category());
+            updateRecipe.setCategory(recipe.getCategory());
             recipeRepository.save(updateRecipe);
             return new ResponseEntity<>(updateRecipe, HttpStatus.OK);
         } else {
