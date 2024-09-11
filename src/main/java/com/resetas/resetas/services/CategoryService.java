@@ -1,6 +1,7 @@
 package com.resetas.resetas.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,10 @@ public class CategoryService {
 
     public List <Category> getAllCategories() {
         return categoryRepository.findAll();
+    }
+
+    public Optional<Category> getCategoryById(int id) {
+        return categoryRepository.findById(id);
     }
 
 }

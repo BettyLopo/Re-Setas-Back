@@ -62,7 +62,7 @@ public class Recipe {
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "id_category", nullable = false)
     @NotNull(message = "La receta debe pertenecer a una categoría")
     @JsonIgnore

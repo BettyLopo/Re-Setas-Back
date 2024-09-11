@@ -51,6 +51,8 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @NotNull(message = "Debes añadir una imagen de perfil")
+    @Column(nullable = false)
     private String profile;
 
     @Enumerated(EnumType.STRING)

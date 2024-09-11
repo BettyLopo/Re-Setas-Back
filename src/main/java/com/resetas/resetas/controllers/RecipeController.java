@@ -104,26 +104,6 @@ public class RecipeController {
         return recipeService.updateRecipe(id, recipe);
     }
 
-//     @CrossOrigin(origins = "http://localhost:3001")
-//     @PostMapping("/recipes/create")
-//     public ResponseEntity<Object> addRecipe(@Valid @RequestBody Recipe recipe) {
-//     Category category = categoryRepository.findById(recipe.getCategory())
-//         .orElseThrow(() -> new ResourceNotFoundException("Category not found with id: " + recipe.getIdCategory()));
-
-//     Recipe recipe = new Recipe();
-//     recipe.setTitle(recipe.getTitle());
-//     recipe.setImage(recipe.getImage());
-//     recipe.setDuration(recipe.getDuration());
-//     recipe.setIngredients(recipe.getIngredients());
-//     recipe.setTools(recipe.getTools());
-//     recipe.setSteps(recipe.getSteps());
-//     recipe.setFaved(recipe.isFaved());
-//     recipe.setDate(recipe.getDate());
-//     recipe.setUser(userRepository.findById(recipe.getIdUser()).orElseThrow(() -> new ResourceNotFoundException("User not found")));
-//     recipe.setCategory(category);
-
-//     Recipe savedRecipe = recipeRepository.save(recipe);
-//     return new ResponseEntity<>(savedRecipe, HttpStatus.CREATED);
-// }
+    
 
 }
