@@ -51,7 +51,7 @@ public class RecipeController {
     }
 
     @CrossOrigin(origins = "http://localhost:3001")
-    @GetMapping("/user/{userId}")
+    @GetMapping("/recipes/{userId}")
     public ResponseEntity<List<Recipe>> getRecipesByUser(
         @AuthenticationPrincipal UserDetails userDetails,
         @PathVariable Integer userId) {
