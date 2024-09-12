@@ -63,8 +63,7 @@ public class Recipe {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "id_category", nullable = false)
-    @NotNull(message = "La receta debe pertenecer a una categoría")
+    @JoinColumn(name = "id_category", nullable = true)
     @JsonIgnore
     private Category category;
 
