@@ -38,6 +38,7 @@ public class SecurityConfig {
             authRequest
                 .requestMatchers("/auth/**").permitAll()
                     .requestMatchers("/recipes").permitAll()
+                    .requestMatchers("/categories").permitAll()
                 .anyRequest().authenticated()
                 )
             .sessionManagement(sessionManager ->
