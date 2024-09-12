@@ -46,6 +46,8 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @NotNull(message = "Debes introducir una contraseña")
+    @Column(nullable = false)
     private String profile;
 
     @Enumerated(EnumType.STRING)
