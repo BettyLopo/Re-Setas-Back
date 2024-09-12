@@ -1,14 +1,22 @@
 package com.resetas.resetas.models;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "recipes")
@@ -16,22 +24,56 @@ public class Recipe {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
     private int id;
+
+    @Column(nullable = false)
+    @NotNull(message = "La receta debe tener nombre")
     private String title;
+
+    @Column(nullable = false)
+    @NotNull(message = "La receta debe tener una imagen")
     private String image;
+
+    @Column(nullable = false)
+    @NotNull(message = "La receta debe tener al menos un ingrediente")
     private String ingredients;
+
+    @Column(nullable = false)
+    @NotNull(message = "La receta debe tener al menos una herramienta")
     private String tools;
+
+    @Column(nullable = false)
+    @NotNull(message = "La receta debe tener una explicación")
     private String steps;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+
+    @Column(nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private Timestamp duration;
+
+    @Column(nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp date;
+
+    @Column(nullable = false)
     private boolean faved;
-    private int id_user;
-    private int id_category;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_user", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "id_category", nullable = true)
+    @JsonIgnore
+    private Category category;
 
 
-    public Recipe() {
+    public Recipe() {}
+
+
+    @PrePersist
+    protected void onCreate() {
+        this.date = Timestamp.from(Instant.now()); 
     }
 
 
@@ -95,7 +137,7 @@ public class Recipe {
         return this.date;
     }
 
-    public void setCreation(Timestamp date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 
@@ -107,26 +149,26 @@ public class Recipe {
         return this.faved;
     }
 
-    public void setLike(boolean faved) {
+    public void setFaved(boolean faved) {
         this.faved = faved;
     }
 
-    public int getId_user() {
-        return this.id_user;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getId_category() {
-        return this.id_category;
+    public Category getCategory() {
+        return this.category;
     }
 
-    public void setId_category(int id_category) {
-        this.id_category = id_category;
+    public void setCategory(Category category) {
+        this.category = category;
     }
-    
+
 
 
 }
