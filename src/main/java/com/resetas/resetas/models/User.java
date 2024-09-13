@@ -41,7 +41,7 @@ public class User implements UserDetails {
 
     @NotNull(message = "Debes introducir un nombre")
     @Column(nullable = false)
-    private String username;
+    private String name;
 
     @NotNull(message = "Debes introducir un email")
     @Column(unique = true, nullable = false)
@@ -51,8 +51,6 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @NotNull(message = "Debes añadir una imagen de perfil")
-    @Column(nullable = false)
     private String profile;
 
     @Enumerated(EnumType.STRING)
@@ -93,9 +91,8 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
-
 
 
     public int getId() {
@@ -105,8 +102,13 @@ public class User implements UserDetails {
     public void setId(int id) {
         this.id = id;
     }
-    public void setUsername(String username) {
-        this.username = username;
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -143,6 +145,7 @@ public class User implements UserDetails {
     public void setRecipes(List<Recipe> recipes) {
         this.recipes = recipes;
     }
+
 
 
     
